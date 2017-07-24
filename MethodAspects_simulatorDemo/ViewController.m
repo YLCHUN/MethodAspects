@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "MethodAspects.h"
+#import "Aspects.h"
 
 @interface ObjectS : NSObject
 -(int)function2:(NSString*)str p:(int)i;
@@ -45,19 +46,16 @@
 @implementation ViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
-    // Do any additional setup after loading the view, typically from a nib.
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
+    
+    [self methodAspectTest];
+//    [self aspectTest];
+}
+
+-(void)methodAspectTest {
     Object *obj = [[Object alloc] init];
     methodAspect(obj, MAReplenish, @selector(function:), ^(NSString* str){
         NSLog(@"function:");
@@ -80,5 +78,27 @@
     NSString *str = [Object classFunction:@"cc"];
     
     NSLog(@"%d %@", i, str);
+}
+
+-(void)aspectTest {
+    Object *obj = [[Object alloc] init];
+    [obj aspect_hookSelector:@selector(function:) withOptions:AspectPositionAfter usingBlock:^(NSString*str){
+        NSLog(@"function:");
+    } error:NULL];
+    [obj function:@"1"];
+    
+    [obj aspect_hookSelector:@selector(function2:p:) withOptions:AspectPositionInstead usingBlock:^int(NSString*str, int i){
+        return 1;//super ？？？
+    } error:NULL];
+    int i = [obj function2:@"11"p:3];
+    
+
+    [[Object class] aspect_hookSelector:@selector(classFunction:) withOptions:AspectPositionInstead usingBlock:^NSString*(NSString*str){//super ？？？
+        NSLog(@"Object");
+        return @"classFunction:";
+    } error:NULL];
+    NSString *str = [Object classFunction:@"cc"];
+    NSLog(@"%d %@", i, str);
+
 }
 @end

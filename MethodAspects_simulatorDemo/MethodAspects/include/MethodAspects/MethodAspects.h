@@ -5,7 +5,12 @@
 //  Created by YLCHUN on 2017/7/19.
 //  Copyright © 2017年 ylchun. All rights reserved.
 //
-//  实现逻辑思路可查阅Aspects.png原理图
+//  MethodAspects: https://github.com/youlianchun/MethodAspects_Demo
+//  Aspects: https://github.com/steipete/Aspects
+//
+//  相比Aspects增加一两点功能：类方法和实例方法可同时进行拦截，方法拦截可根据需要调用原super方法
+//  主要不同的一点是MethodAspects和Aspects在参数赋值的处理上，MethodAspects采用无转型直接赋值，Aspects统一处理成NSValue赋值
+//  MethodAspects还在自测和逻辑梳理阶段，暂且不公开源码，实现逻辑思路可查阅MethodAspects_beta.png原理图
 
 #import <Foundation/Foundation.h>
 
