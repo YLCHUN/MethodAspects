@@ -1,0 +1,6 @@
+framework module MethodAspects {
+  umbrella header "MethodAspects.h"
+
+  export *
+  module * { export * }
+}

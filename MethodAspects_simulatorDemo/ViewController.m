@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "MethodAspects.h"
+#import <MethodAspects/MethodAspects.h>
 #import "Aspects.h"
 
 @interface ObjectS : NSObject

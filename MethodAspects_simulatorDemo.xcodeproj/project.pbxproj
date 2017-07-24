@@ -7,18 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A9691D831F260742005F755E /* MethodAspects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9691D821F260742005F755E /* MethodAspects.framework */; };
 		A9EC713F1F25C1B100168CC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EC713E1F25C1B100168CC8 /* main.m */; };
 		A9EC71421F25C1B100168CC8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EC71411F25C1B100168CC8 /* AppDelegate.m */; };
 		A9EC71451F25C1B100168CC8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EC71441F25C1B100168CC8 /* ViewController.m */; };
 		A9EC71481F25C1B100168CC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9EC71461F25C1B100168CC8 /* Main.storyboard */; };
 		A9EC714A1F25C1B100168CC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9EC71491F25C1B100168CC8 /* Assets.xcassets */; };
 		A9EC714D1F25C1B100168CC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9EC714B1F25C1B100168CC8 /* LaunchScreen.storyboard */; };
-		A9EC71591F25C1DB00168CC8 /* libMethodAspects.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9EC71581F25C1DB00168CC8 /* libMethodAspects.a */; };
 		A9EC71BD1F25CCC600168CC8 /* MethodAspects_beta.png in Resources */ = {isa = PBXBuildFile; fileRef = A9EC71BC1F25CCC600168CC8 /* MethodAspects_beta.png */; };
 		A9EC71C01F25D2B400168CC8 /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EC71BF1F25D2B400168CC8 /* Aspects.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A9691D821F260742005F755E /* MethodAspects.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MethodAspects.framework; sourceTree = "<group>"; };
 		A9EC713A1F25C1B100168CC8 /* MethodAspects_simulatorDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MethodAspects_simulatorDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9EC713E1F25C1B100168CC8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A9EC71401F25C1B100168CC8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -29,8 +30,6 @@
 		A9EC71491F25C1B100168CC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9EC714C1F25C1B100168CC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A9EC714E1F25C1B100168CC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A9EC71571F25C1DB00168CC8 /* MethodAspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MethodAspects.h; sourceTree = "<group>"; };
-		A9EC71581F25C1DB00168CC8 /* libMethodAspects.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMethodAspects.a; sourceTree = "<group>"; };
 		A9EC71BC1F25CCC600168CC8 /* MethodAspects_beta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MethodAspects_beta.png; sourceTree = "<group>"; };
 		A9EC71BE1F25D2B400168CC8 /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
 		A9EC71BF1F25D2B400168CC8 /* Aspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
@@ -41,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9EC71591F25C1DB00168CC8 /* libMethodAspects.a in Frameworks */,
+				A9691D831F260742005F755E /* MethodAspects.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +69,7 @@
 			children = (
 				A9EC71BE1F25D2B400168CC8 /* Aspects.h */,
 				A9EC71BF1F25D2B400168CC8 /* Aspects.m */,
-				A9EC71541F25C1DB00168CC8 /* MethodAspects */,
+				A9691D821F260742005F755E /* MethodAspects.framework */,
 				A9EC71401F25C1B100168CC8 /* AppDelegate.h */,
 				A9EC71411F25C1B100168CC8 /* AppDelegate.m */,
 				A9EC71431F25C1B100168CC8 /* ViewController.h */,
@@ -90,31 +89,6 @@
 				A9EC713E1F25C1B100168CC8 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		A9EC71541F25C1DB00168CC8 /* MethodAspects */ = {
-			isa = PBXGroup;
-			children = (
-				A9EC71551F25C1DB00168CC8 /* include */,
-				A9EC71581F25C1DB00168CC8 /* libMethodAspects.a */,
-			);
-			path = MethodAspects;
-			sourceTree = "<group>";
-		};
-		A9EC71551F25C1DB00168CC8 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				A9EC71561F25C1DB00168CC8 /* MethodAspects */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		A9EC71561F25C1DB00168CC8 /* MethodAspects */ = {
-			isa = PBXGroup;
-			children = (
-				A9EC71571F25C1DB00168CC8 /* MethodAspects.h */,
-			);
-			path = MethodAspects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,6 +288,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MethodAspects_simulatorDemo",
+				);
 				INFOPLIST_FILE = MethodAspects_simulatorDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -329,6 +307,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MethodAspects_simulatorDemo",
+				);
 				INFOPLIST_FILE = MethodAspects_simulatorDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -359,6 +341,7 @@
 				A9EC71531F25C1B100168CC8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
