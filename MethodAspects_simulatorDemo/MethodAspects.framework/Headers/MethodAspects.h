@@ -12,6 +12,9 @@
 //  主要不同的一点是MethodAspects和Aspects在参数赋值的处理上，MethodAspects采用无转型直接赋值，Aspects统一处理成NSValue赋值
 //  MethodAspects实现逻辑思路可查阅MethodAspects.png原理图
 
+#import <Foundation/Foundation.h>
+
+#pragma mark - MethodAspect
 
 typedef enum : int {
     MAForestall = 0,            //抢先执行，仅调用，return无效
@@ -35,7 +38,7 @@ typedef id MABlock;
 
  @param target 目标（类或实例对象）
  @param option 操作方式
- @param selector 对应方法
+ @param selector 目标方法
  @param block 回调
  */
 extern void methodAspect(id target, MAOptions option, SEL selector, MABlock block);
@@ -44,9 +47,34 @@ extern void methodAspect(id target, MAOptions option, SEL selector, MABlock bloc
  移除拦截
 
  @param target 目标（类或实例对象）
- @param selector 对应方法，nil为全部
+ @param selector 目标方法，nil为全部
  */
 extern void methodUnAspect(id target, SEL selector);
+
+
+
+#pragma mark - 
+#pragma mark - NSObject+MethodAspect
+
+@interface NSObject (MethodAspect)
+
+/**
+ 设置拦截，适用于类和对象
+
+ @param anSelector 目标方法
+ @param option 操作方式
+ @param block 回调
+ */
+-(void)methodAspectWithSelector:(SEL)anSelector option:(MAOptions)option block:(MABlock)block;
+
+/**
+ 移除拦截
+
+ @param anSelector 目标方法
+ */
+-(void)methodUnAspectWithSelector:(SEL)anSelector;
+
+@end
 
 
 

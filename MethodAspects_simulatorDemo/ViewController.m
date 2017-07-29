@@ -11,10 +11,14 @@
 #import "Aspects.h"
 
 @interface ObjectS : NSObject
+-(CGRect)function1:(CGPoint)size;
 -(int)function2:(NSString*)str p:(int)i;
 +(NSString*)classFunction:(NSString*)str;
 @end
 @implementation ObjectS
+-(CGRect)function1:(CGPoint)size{
+    return CGRectMake(0, 0, 100, 100);
+}
 -(int)function2:(NSString*)str p:(int)i {
     NSLog(@"super %s %@", __func__, str);
     return 1;
@@ -25,12 +29,16 @@
 @end
 @interface Object : ObjectS
 -(void)function:(NSString*)str;
+-(CGRect)function1:(CGPoint)size;
 -(int)function2:(NSString*)str p:(int)i;
 +(NSString*)classFunction:(NSString*)str;
 @end
 @implementation Object
 -(void)function:(NSString*)str {
     NSLog(@"self %s %@", __func__, str);
+}
+-(CGRect)function1:(CGPoint)size {
+    return CGRectMake(0, 0, 0, 100);
 }
 -(int)function2:(NSString*)str p:(int)i {
     NSLog(@"self %s %@", __func__, str);
@@ -77,7 +85,17 @@
     });
     NSString *str = [Object classFunction:@"cc"];
     
-    NSLog(@"%d %@", i, str);
+    methodAspect(obj, MAIntercept, @selector(function1:), ^CGRect(CGPoint point, MACallSuper callSuper){
+        CGRect sRect;
+        callSuper(&sRect,point);
+        sRect.origin = point;
+        return sRect;
+    });
+    
+    CGRect rect = [obj function1:CGPointMake(100, 10)];
+    
+    
+    NSLog(@"%d %@  {%f,%f, %f,%f}", i, str,rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 }
 
 -(void)aspectTest {
