@@ -56,6 +56,13 @@ extern void methodUnAspect(id target, SEL selector);
 #pragma mark - 
 #pragma mark - NSObject+MethodAspect
 
+#define FOUNDATION_IMPORT_METHODASPECT void ___importMethodAspect();\
+__attribute__((used)) static void importMethodAspect () {\
+___importMethodAspect();\
+}
+
+FOUNDATION_IMPORT_METHODASPECT
+
 @interface NSObject (MethodAspect)
 
 /**
