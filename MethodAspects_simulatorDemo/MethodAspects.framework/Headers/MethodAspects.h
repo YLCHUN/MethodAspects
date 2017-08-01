@@ -66,13 +66,14 @@ FOUNDATION_IMPORT_METHODASPECT
 @interface NSObject (MethodAspect)
 
 /**
- 设置拦截，适用于类和对象
+ 设置拦截
 
  @param anSelector 目标方法
  @param option 操作方式
  @param block 回调
  */
 -(void)methodAspectWithSelector:(SEL)anSelector option:(MAOptions)option block:(MABlock)block;
++(void)methodAspectWithSelector:(SEL)anSelector option:(MAOptions)option block:(MABlock)block;
 
 /**
  移除拦截
@@ -80,6 +81,7 @@ FOUNDATION_IMPORT_METHODASPECT
  @param anSelector 目标方法
  */
 -(void)methodUnAspectWithSelector:(SEL)anSelector;
++(void)methodUnAspectWithSelector:(SEL)anSelector;
 
 @end
 
