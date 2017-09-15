@@ -1,6 +1,6 @@
 //
 //  AppDelegate.h
-//  MethodAspects_simulatorDemo
+//  MethodAspects_Demo
 //
 //  Created by YLCHUN on 2017/7/24.
 //  Copyright © 2017年 ylchun. All rights reserved.

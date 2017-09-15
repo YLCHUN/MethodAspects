@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:MethodAspects_simulatorDemo.xcodeproj">
+      location = "self:MethodAspects_Demo.xcodeproj">
    </FileRef>
 </Workspace>
