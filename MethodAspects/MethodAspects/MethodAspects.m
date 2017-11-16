@@ -87,9 +87,9 @@ static void ma_returnCopy(NSInvocation *invocationFrom, NSInvocation *invocation
 }
 
 #pragma mark -
-static BOOL isClass(id obj) {
-    return  [obj respondsToSelector:@selector(alloc)];
-}
+//static BOOL isClass(id obj) {
+//    return  [obj respondsToSelector:@selector(alloc)];
+//}
 
 static SEL ma_MABlockDictSelector(id self) {
     SEL sel = sel_registerName(isClass(self)?"ma_selectorMABlockDict_class":"ma_selectorMABlockDict_instance");
@@ -145,7 +145,7 @@ static Class ma_subClass(id self, BOOL initIfNil, void(^block)(Class selfClass, 
     Class selfClass = object_getClass(self);
     char buffer[100] = "";
     const char *selfclass = object_getClassName(self);
-    char *postfix = isClass(self)?"_maSub_A":"_maSub_a";
+    char *postfix = object_isClass(self)?"_maSub_A":"_maSub_a";
     Class subClass;
     if(strstr(selfclass, postfix)) {
         subClass = objc_getClass(selfclass);
