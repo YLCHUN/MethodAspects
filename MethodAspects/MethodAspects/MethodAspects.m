@@ -92,7 +92,7 @@ static void ma_returnCopy(NSInvocation *invocationFrom, NSInvocation *invocation
 //}
 
 static SEL ma_MABlockDictSelector(id self) {
-    SEL sel = sel_registerName(isClass(self)?"ma_selectorMABlockDict_class":"ma_selectorMABlockDict_instance");
+    SEL sel = sel_registerName(object_isClass(self)?"ma_selectorMABlockDict_class":"ma_selectorMABlockDict_instance");
     return sel;
 }
 
@@ -184,7 +184,7 @@ static void ma_unForwardInvocation(id self) {
 
 static Class _forwarding(id self) {//ma_forwardInvocation(id self)
     Class subClass = ma_subClass(self, YES, ^(__unsafe_unretained Class selfClass, __unsafe_unretained Class subClass) {
-        BOOL isAClass = isClass(self);
+        BOOL isAClass = object_isClass(self);
         SEL sel_forwardInvocation = sel_registerName("ma_forwardInvocation:");
         Method method_forwardInvocation = class_getInstanceMethod(subClass, @selector(forwardInvocation:));
         const char *encode_forwardInvocation = method_getTypeEncoding(method_forwardInvocation);
