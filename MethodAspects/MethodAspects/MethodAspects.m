@@ -47,19 +47,6 @@ static NSInvocation* ma_getInvocationForBlock(id block) {
     return invocation;
 }
 
-//static void ma_copy(void *from, void *to) {
-//    static NSInvocation *invocation;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        invocation = [NSInvocation invocationWithMethodSignature:[NSMethodSignature signatureWithObjCTypes:"v@:"]];
-//    });
-//    [invocation setArgument:from atIndex:0];
-//    [invocation getArgument:to atIndex:0];
-//    static void *empty;
-//    empty = NULL;
-//    [invocation setArgument:empty atIndex:0];
-//}
-
 static void ma_argumentCopy(NSInvocation *invocationFrom, NSInvocation *invocationTo){
     if (invocationFrom && invocationTo) {
         NSInteger count_from = invocationFrom.methodSignature.numberOfArguments - 2;
@@ -87,9 +74,6 @@ static void ma_returnCopy(NSInvocation *invocationFrom, NSInvocation *invocation
 }
 
 #pragma mark -
-//static BOOL isClass(id obj) {
-//    return  [obj respondsToSelector:@selector(alloc)];
-//}
 
 static SEL ma_MABlockDictSelector(id self) {
     SEL sel = sel_registerName(object_isClass(self)?"ma_selectorMABlockDict_class":"ma_selectorMABlockDict_instance");
@@ -330,13 +314,6 @@ static SEL ma_msgForwardSelector(Class subClass, id self, SEL selector) {
     }
     return sel;
 }
-
-////删除selector对应的IMP（修改为转发IMP）
-//static BOOL class_delMethodIMP(Class cls, SEL name, const char *types){
-//    IMP imp = ma_getMsgForwardIMP(types);
-//    BOOL b = class_replaceMethod(cls, name, imp, types);
-//    return b;
-//}
 
 static void ma_locked(dispatch_block_t block) {
     static OSSpinLock ma_lock = OS_SPINLOCK_INIT;
