@@ -53,8 +53,7 @@ static void ma_argumentCopy(NSInvocation *invocationFrom, NSInvocation *invocati
         NSInteger count_to = invocationTo.methodSignature.numberOfArguments - 1;
         for (NSInteger i = 0; i < count_from && i < count_to; i++) {
             NSInteger indexFrom = i+2;
-            static void *argument;
-            argument = NULL;
+            static void *argument = NULL;
             [invocationFrom getArgument:&argument atIndex:indexFrom];
             NSInteger indexTo = i+1;
             [invocationTo setArgument:&argument atIndex:indexTo];
@@ -65,8 +64,7 @@ static void ma_argumentCopy(NSInvocation *invocationFrom, NSInvocation *invocati
 
 static void ma_returnCopy(NSInvocation *invocationFrom, NSInvocation *invocationTo){
     if (invocationFrom.methodSignature.methodReturnLength>0 && invocationTo.methodSignature.methodReturnLength>0) {
-        static void *returnValue;
-        returnValue = NULL;
+        static void *returnValue = NULL;
         [invocationFrom getReturnValue:&returnValue];
         [invocationTo setReturnValue:&returnValue];
         returnValue = NULL;
@@ -74,9 +72,15 @@ static void ma_returnCopy(NSInvocation *invocationFrom, NSInvocation *invocation
 }
 
 #pragma mark -
+static BOOL isClass(id obj) {
+    if (object_isClass(obj)) {
+        return YES;
+    }
+    return [obj respondsToSelector:@selector(alloc)];
+}
 
 static SEL ma_MABlockDictSelector(id self) {
-    SEL sel = sel_registerName(object_isClass(self)?"ma_selectorMABlockDict_class":"ma_selectorMABlockDict_instance");
+    SEL sel = sel_registerName(isClass(self)?"ma_selectorMABlockDict_class":"ma_selectorMABlockDict_instance");
     return sel;
 }
 
@@ -115,38 +119,34 @@ static void ma_cleSelectorMABlockDict(id self, __nonnull SEL sel) {
 #define sel_maSub(SEL) sel_maSel(SEL, "maSub_")//superClass selfClass subClass 说明：subClass里指向selfClass的方法
 #define sel_maSup(SEL) sel_maSel(SEL, "maSup_")//superClass selfClass subClass 说明：subClass里指向superClass的方法
 static SEL sel_maSel(SEL selector, char *prefix) {
-    char buffer[100] = "";
+    char selName[100] = "";
     const char *selectorName = sel_getName(selector);
-    strcpy(buffer, prefix);
-    strcat(buffer, selectorName);
-    char *selName = buffer;
+    strcpy(selName, prefix);
+    strcat(selName, selectorName);
     SEL sel = sel_registerName(selName);
     return sel;
 }
 
-
 static Class ma_subClass(id self, BOOL initIfNil, void(^block)(Class selfClass, Class subClass)) {
-    Class selfClass = object_getClass(self);
-    char buffer[100] = "";
     const char *selfclass = object_getClassName(self);
-    char *postfix = object_isClass(self)?"_maSub_A":"_maSub_a";
+    char *postfix = isClass(self)?"_maSub_A":"_maSub_a";
     Class subClass;
+    Class selfClass;
     if(strstr(selfclass, postfix)) {
         subClass = objc_getClass(selfclass);
         selfClass = class_getSuperclass(subClass);
-    }else{
-        strcpy(buffer, selfclass);
-        strcat(buffer, postfix);
-        char *subclass = buffer;
+    }else {
+        char subclass[100] = "";
+        strcpy(subclass, selfclass);
+        strcat(subclass, postfix);
         subClass = objc_getClass(subclass);
+        selfClass = object_getClass(self);
         if (subClass == nil && initIfNil) {
             subClass = objc_allocateClassPair(selfClass, subclass, 0);
-            if (block) {
-                block(selfClass, subClass);
-            }
+            objc_registerClassPair(subClass);
         }
     }
-    if (!initIfNil && block) {
+    if (block) {
         block(selfClass, subClass);
     }
     return subClass;
@@ -166,9 +166,9 @@ static void ma_unForwardInvocation(id self) {
 }
 
 
-static Class _forwarding(id self) {//ma_forwardInvocation(id self)
+static Class _forwarding(id self) {
     Class subClass = ma_subClass(self, YES, ^(__unsafe_unretained Class selfClass, __unsafe_unretained Class subClass) {
-        BOOL isAClass = object_isClass(self);
+        BOOL isAClass = isClass(self);
         SEL sel_forwardInvocation = sel_registerName("ma_forwardInvocation:");
         Method method_forwardInvocation = class_getInstanceMethod(subClass, @selector(forwardInvocation:));
         const char *encode_forwardInvocation = method_getTypeEncoding(method_forwardInvocation);
@@ -254,8 +254,6 @@ static Class _forwarding(id self) {//ma_forwardInvocation(id self)
             const char *encode_class = method_getTypeEncoding(method_class);
             class_replaceMethod(subClass, @selector(class), imp_class, encode_class);
         }
-
-        objc_registerClassPair(subClass);
     });
     object_setClass(self, subClass);
     return subClass;
@@ -308,12 +306,19 @@ static SEL ma_msgForwardSelector(Class subClass, id self, SEL selector) {
     if (!ma_isMsgForwardIMP(imp)) {
         const char *encode = method_getTypeEncoding(method);
         if (![subClass instancesRespondToSelector:sel]) {
-           class_addMethod(subClass, sel, method_getImplementation(method), encode);
+            class_addMethod(subClass, sel, method_getImplementation(method), encode);
         }
-       class_replaceMethod(subClass, selector, ma_getMsgForwardIMP(encode), encode);
+        class_replaceMethod(subClass, selector, ma_getMsgForwardIMP(encode), encode);
     }
     return sel;
 }
+
+////删除selector对应的IMP（修改为转发IMP）
+//static BOOL class_delMethodIMP(Class cls, SEL name, const char *types){
+//    IMP imp = ma_getMsgForwardIMP(types);
+//    BOOL b = class_replaceMethod(cls, name, imp, types);
+//    return b;
+//}
 
 static void ma_locked(dispatch_block_t block) {
     static OSSpinLock ma_lock = OS_SPINLOCK_INIT;
