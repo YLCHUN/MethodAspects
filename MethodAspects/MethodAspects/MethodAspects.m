@@ -7,10 +7,9 @@
 //
 
 #import "MethodAspects.h"
-#import <UIKit/UIKit.h>
-#import <libkern/OSAtomic.h>
 #import <objc/runtime.h>
 #import <objc/message.h>
+#import <pthread.h>
 
 typedef struct _MAHandlerBlock {
     __unused Class isa;
@@ -321,10 +320,10 @@ static SEL ma_msgForwardSelector(Class subClass, id self, SEL selector) {
 //}
 
 static void ma_locked(dispatch_block_t block) {
-    static OSSpinLock ma_lock = OS_SPINLOCK_INIT;
-    OSSpinLockLock(&ma_lock);
+    static pthread_mutex_t ma_lock = PTHREAD_MUTEX_INITIALIZER;
+    pthread_mutex_lock(&ma_lock);
     block();
-    OSSpinLockUnlock(&ma_lock);
+    pthread_mutex_unlock(&ma_lock);
 }
 
 void methodAspect(id self, MAOptions option, SEL selector, MABlock block) {
