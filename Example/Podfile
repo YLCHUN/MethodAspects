@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '8.0'
+
+target 'MethodAspects_Example' do
+  pod 'MethodAspects', :path => '../'
+
+  target 'MethodAspects_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

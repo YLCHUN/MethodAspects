@@ -1,0 +1,6 @@
+framework module Pods_MethodAspects_Example {
+  umbrella header "Pods-MethodAspects_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

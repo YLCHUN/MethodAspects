@@ -1,4 +1,29 @@
-# MethodAspects_Demo
-MethodAspects模拟器demo  相比Aspects增加几点功能：类方法和实例方法可同时进行拦截，方法拦截可根据需要调用原super方法，支持结构体参数传递
+# MethodAspects
 
-![](https://github.com/youlianchun/MethodAspects_Demo/blob/master/MethodAspects.png)
+[![CI Status](https://img.shields.io/travis/youlianchun/MethodAspects.svg?style=flat)](https://travis-ci.org/youlianchun/MethodAspects)
+[![Version](https://img.shields.io/cocoapods/v/MethodAspects.svg?style=flat)](https://cocoapods.org/pods/MethodAspects)
+[![License](https://img.shields.io/cocoapods/l/MethodAspects.svg?style=flat)](https://cocoapods.org/pods/MethodAspects)
+[![Platform](https://img.shields.io/cocoapods/p/MethodAspects.svg?style=flat)](https://cocoapods.org/pods/MethodAspects)
+
+## Example
+
+To run the example project, clone the repo, and run `pod install` from the Example directory first.
+
+## Requirements
+
+## Installation
+
+MethodAspects is available through [CocoaPods](https://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod 'MethodAspects'
+```
+
+## Author
+
+youlianchun, youlianchunios@163.com
+
+## License
+
+MethodAspects is available under the MIT license. See the LICENSE file for more info.
