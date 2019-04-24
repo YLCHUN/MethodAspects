@@ -5,10 +5,11 @@
 [![License](https://img.shields.io/cocoapods/l/MethodAspects.svg?style=flat)](https://cocoapods.org/pods/MethodAspects)
 [![Platform](https://img.shields.io/cocoapods/p/MethodAspects.svg?style=flat)](https://cocoapods.org/pods/MethodAspects)
 
+![](https://raw.githubusercontent.com/youlianchun/MethodAspects/master/MethodAspects.png)
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
-![](https://raw.githubusercontent.com/youlianchun/MethodAspects/master/MethodAspects.png)
 
 ## Requirements
 
